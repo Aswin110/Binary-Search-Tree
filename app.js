@@ -212,8 +212,19 @@ class Tree {
 		return dist;
 	}
 
-    
+	isBalanced(root = this.root) {
+		if (root === null ) return 0;
+		let abs = Math.abs(this.height(root.left) - this.height(root.right));
+		if (abs < 2) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
+    rebalance() {
+        console.log('hi');
+    }
 
 	prettyPrint(node = this.root, prefix = '', isLeft = true) {
 		if (node === null) {
@@ -253,3 +264,4 @@ tree.postOrder();
 tree.preOrder();
 console.log(tree.height());
 console.log(tree.depth(5));
+console.log(tree.isBalanced());
