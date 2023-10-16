@@ -173,14 +173,47 @@ class Tree {
 			result.push(root.data);
 			order(root.left);
 			order(root.right);
-			
-			
-			
 		}
 		order (root);
 		console.log('pre order', result);
 		return result;
 	}
+
+	height(root = this.root) {
+		if (root === null) return 0;
+
+		let left = this.height(root.left);
+		let right = this.height(root.right);
+		if (left > right ) {
+			return (left + 1);
+		} else {
+			return (right + 1);
+		}
+	}
+
+	depth(key, root = this.root) {
+		let dist = -1;
+		function depthValue(root, key){
+			if (root === null ) return dist;
+            
+			if (root.data === key ) {
+				dist +=1;
+			} else if (root.data > key) {
+				depthValue(root.left, key);
+				(dist +=1);
+			} else {
+				depthValue(root.right, key);
+				(dist +=1);
+			}
+			
+		}
+		depthValue(root ,key);
+		console.log('depth', dist);
+		return dist;
+	}
+
+    
+
 
 	prettyPrint(node = this.root, prefix = '', isLeft = true) {
 		if (node === null) {
@@ -218,3 +251,5 @@ tree.levelOrderRecursive();
 tree.inOrder();
 tree.postOrder();
 tree.preOrder();
+console.log(tree.height());
+console.log(tree.depth(5));
