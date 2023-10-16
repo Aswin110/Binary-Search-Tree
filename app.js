@@ -12,10 +12,6 @@ class Tree {
 		this.root = this.buildTree(sortedArray);
 	}
 
-	isEmpty() {
-		this.root === null;
-	}
-
 	buildTree(array, start = 0, end = array.length - 1) {
 		if (start > end) return null;
 
@@ -93,6 +89,99 @@ class Tree {
         
 	}
 
+	//breadth search tree (BST)
+	levelOrder(root = this.root) {
+		if(root === null) return [];
+		let results = [];
+		let queue = [root];
+		console.log(root);
+        
+      
+		while (queue.length !== 0) {
+			let subQueue = [];
+			const n = queue.length;
+      
+			for (let i = 0; i < n; i++) {
+				let node = queue.pop();
+				subQueue.push(node.data);
+				if (node.left) {
+					queue.unshift(node.left);
+				}
+				if (node.right) {
+					queue.unshift(node.right);
+				}
+			}
+			results.push(subQueue);
+		}
+		console.log(results);
+		return results;
+	}
+
+	levelOrderRecursive(root = this.root) {
+		let result = [];
+		function recc(root, level) {
+			if (root === null) return [];
+
+			if (result[level]) {
+				result[level].push(root.data);
+			} else {
+				result[level] = [root.data];
+			}
+			recc(root.left, level + 1);
+			recc(root.right, level + 1);
+		}
+		recc(root, 0);
+		console.log(result);
+		return result;
+	}
+
+	//depth search tree (DST) 
+	inOrder(root = this.root) {
+		let result = [];
+		function order(root) {
+			if (root === null) return;
+
+			order(root.left);
+			result.push(root.data);
+			order(root.right);
+		}
+		order (root);
+		console.log('inorder', result);
+		return result;
+	}
+
+	postOrder(root = this.root) {
+		let result = [];
+		function order(root) {
+			if (root === null) return;
+
+			order(root.left);
+			order(root.right);
+			result.push(root.data);
+			
+		}
+		order (root);
+		console.log('post order', result);
+		return result;
+	}
+
+	preOrder(root = this.root) {
+		let result = [];
+		function order(root) {
+			if (root === null) return;
+
+			result.push(root.data);
+			order(root.left);
+			order(root.right);
+			
+			
+			
+		}
+		order (root);
+		console.log('pre order', result);
+		return result;
+	}
+
 	prettyPrint(node = this.root, prefix = '', isLeft = true) {
 		if (node === null) {
 			return;
@@ -121,5 +210,11 @@ tree.prettyPrint();
 // console.log(tree.delete(9));
 // tree.prettyPrint();
 
-console.log(tree.delete(8));
-tree.prettyPrint();
+// console.log(tree.delete(8));
+// tree.prettyPrint();
+
+tree.levelOrder();
+tree.levelOrderRecursive();
+tree.inOrder();
+tree.postOrder();
+tree.preOrder();
