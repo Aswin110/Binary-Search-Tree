@@ -222,9 +222,17 @@ class Tree {
 		}
 	}
 
-    rebalance() {
-        console.log('hi');
-    }
+	reBalance(root = this.root) {
+		if (root === null ) return 0;
+
+		if (this.isBalanced(root)) {
+			return root;
+		} else {
+			let value = this.buildTree( this.inOrder(root) );
+			return value;
+		}
+        
+	}
 
 	prettyPrint(node = this.root, prefix = '', isLeft = true) {
 		if (node === null) {
@@ -265,3 +273,9 @@ tree.preOrder();
 console.log(tree.height());
 console.log(tree.depth(5));
 console.log(tree.isBalanced());
+console.log(tree.reBalance());
+let value = tree.reBalance();
+
+console.log(typeof(tree));
+console.log(typeof(value));
+// value.prettyPrint();
